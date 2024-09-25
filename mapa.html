@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contato - Meu Website</title>
+    <link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/form-section.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="barro_periodico.html">Barro Periódico</a></li>
+                <li><a href="mapa.html">Mapa</a></li>
+            </ul>
+        </nav>
+    </header>
+		<body>
+			<!-- Div onde o mapa será renderizado -->
+			<section id="mapa" class="map-section">
+				<h2>Mapa das Associações e Cooperativas</h2>
+				<div id="map" style="height: 500px;"></div>
+			</section>
+
+			<!-- Script JavaScript -->
+			<script>
+				// Inicializar o mapa centrado no Barreiro
+				var map = L.map('map').setView([38.6635, -9.0737], 13);  // Coordenadas do Barreiro
+
+				// Adicionar camada de mapa do OpenStreetMap
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '© OpenStreetMap contributors'
+				}).addTo(map);
+
+				// Criar ícone personalizado para os marcadores
+				var logoIcon = L.icon({
+					iconUrl: 'jpg/1.jpg',  // URL do logotipo (substituir com a imagem real)
+					iconSize: [40, 40],  // Tamanho do ícone [largura, altura]
+					iconAnchor: [20, 40],  // Ponto de ancoragem do ícone (o ponto de referência)
+					popupAnchor: [0, -40]  // Ponto onde o popup deve aparecer, relativo ao ícone
+				});
+
+				// Exemplo de associação com logotipo personalizado
+				var marker1 = L.marker([38.6635, -9.0737], {icon: logoIcon}).addTo(map)
+					.bindPopup("<b>Associação X</b><br>Descrição da associação.");
+				
+				// Adicionar mais marcadores com logotipos personalizados
+				var marker2 = L.marker([38.6665, -9.0730], {icon: logoIcon}).addTo(map)
+					.bindPopup("<b>Cooperativa Y</b><br>Descrição da cooperativa.");
+				
+				var marker3 = L.marker([38.6700, -9.0800], {icon: logoIcon}).addTo(map)
+					.bindPopup("<b>Associação Z</b><br>Outra associação importante.");
+			</script>
+</body>
+<!-- Formulário abaixo do mapa -->
+<section id="inscricao" class="form-section">
+    <h2>Inscreva sua Associação ou Cooperativa</h2>
+    <form id="associationForm" action="processar_formulario.php" method="POST" enctype="multipart/form-data">
+        <label for="name">Nome da Associação:</label>
+        <input type="text" id="name" name="name" placeholder="Digite o nome da associação" required>
+
+        <label for="description">Descrição do Coletivo:</label>
+        <textarea id="description" name="description" placeholder="Forneça uma breve descrição da sua associação" required></textarea>
+
+        <label for="location">Local (coordenadas em formato "latitude, longitude"):</label>
+        <input type="text" id="location" name="location" placeholder="Exemplo: 38.6635, -9.0737" required>
+
+        <label for="image">Anexar Imagem (opcional):</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <input type="submit" value="Enviar">
+    </form>
+</section>
+
+	
+
+    <footer>
+        <p>&copy; 2024 Meu Website Aprimorado. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
